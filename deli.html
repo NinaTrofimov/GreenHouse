@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="pagestyle.css" rel="stylesheet" type="text/css" media="all">
+    <title>Deliveries</title>
+</head>
+<h1>Delivery Form</h1>
+<body>
+    <div id = "customer">
+        <label>First Name : <input id = "firstName" type = "text" required ></label>
+        <label>Last Name : <input id = "lastName" required></label>
+        <label>Phone Number : <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required /></label>
+        <label>Address : <input id = "address" required></label>
+    </div>
+    <h2>Items: </h2>
+    <div id = "space">
+        <label>Item Code : <input id = "code0" type = "text" required></label>
+        <label>Item Name : <input id = "name0" type = "text" required></label>
+        <label>Quantity : <input id = "quan0" type = "text" required></label>
+        <label>Total Price : <input id = "price0" type = "text" required></label>
+        <br>
+    </div>
+    <div id = "buttonsAll">
+        <button id = "add">+ Add</button>
+        <button id = "remove">- Remove</button>
+        <button id = "subButton">Submit Info</button>
+    </div>
+    <script src = "script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</body>
+</html>
