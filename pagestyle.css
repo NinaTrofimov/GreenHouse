@@ -1,6 +1,6 @@
 body{
     box-sizing:border-box;
-    padding: 150px;
+    padding: 100px;
     margin: 30px;
 }
 
@@ -10,7 +10,9 @@ body{
     box-sizing:border-box;
     text-align: center;
 }
-
+label{
+    max-width:10px;
+}
 label:hover{
     color:black;
 }
@@ -21,4 +23,14 @@ label:hover{
     box-sizing:border-box;
     text-align: center;
     min-width:60em;
+    padding: 10px;
+}
+
+#buttonsAll{
+   font-size:60px;
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  
 }
