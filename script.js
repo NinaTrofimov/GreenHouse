@@ -1,19 +1,22 @@
 let count = 0;
 
-document.addEventListener('click', function() {
+document.addEventListener('click', function(e) {
+    e.preventDefault()
     const add = document.getElementById('add');
     const remove = document.getElementById('remove');
     const submitButton = document.getElementById('subButton');
     
     add.onclick = function() {
         appendItemDetails(); 
+        console.log(count);
     }
 
     remove.onclick = function(){
         removeItemDetails();
     }
 
-    submitButton.onclick = function(){
+    submitButton.onclick = function(e){
+        e.preventDefault();
         var firstName = document.getElementById('firstName').value;
         var lastName = document.getElementById('lastName').value;
         var number = document.getElementById('phone').value;
@@ -24,37 +27,35 @@ document.addEventListener('click', function() {
             'number' : number,
             'address' : address
         }
-
-        let details = ['itemCode', 'name', 'quantity', 'price'];
-
-        let info = { 
-
-        }
-        for(let i = 0; i < count; i++){
-
+        let details = ['itemCode', 'name', 'quantity', 'totalPrice'];
+        let infoAll = []
+        
+        for(let i = 0; i < count + 1; i++){
             let infoList = {}
 
-            listing = `ItemNumber${count}`
+            listing = `ItemNumber${i}`
 
-            let code = document.getElementById(`code${count}`);
-            let name = document.getElementById(`name${count}`);
-            let quan = document.getElementById(`quan${count}`);
-            let price = document.getElementById(`price${count}`);
+            let code = document.getElementById(`code${i}`).value;
+            let name = document.getElementById(`name${i}`).value;
+            let quan = document.getElementById(`quan${i}`).value;
+            let price = document.getElementById(`price${i}`).value;
 
             let listofInfos = [code,name,quan,price]
             
             for(let j = 0; j < 4; j++){
-                let information = listofInfos[j]
-
-                infoList[details[j]] = information;
-
+                infoList[details[j]] = listofInfos[j];
             }
             
-            info.push({[listing] : infoList})
+            infoAll.push({ [listing] : infoList})
 
         }
-        
+        let info = { 
+            infoAll
+        }
+        console.log(userInfo,info)
+        window.location.href = 'locationforward.html'
     }
+    
 
 
 });
