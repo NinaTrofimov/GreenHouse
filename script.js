@@ -27,9 +27,10 @@ document.addEventListener('click', function(e) {
             'number' : number,
             'address' : address
         }
-        let details = ['itemCode', 'name', 'quantity', 'totalPrice'];
+        let details = ['itemCode', 'name', 'quantity', 'totalPrice','gallons'];
         let infoAll = []
-        
+        var fullPrice = 0;
+        var gallons = 0
         for(let i = 0; i < count + 1; i++){
             let infoList = {}
 
@@ -39,10 +40,12 @@ document.addEventListener('click', function(e) {
             let name = document.getElementById(`name${i}`).value;
             let quan = document.getElementById(`quan${i}`).value;
             let price = document.getElementById(`price${i}`).value;
+            let gallons = document.getElementById(`gal${i}`).value;
 
-            let listofInfos = [code,name,quan,price]
-            
-            for(let j = 0; j < 4; j++){
+
+            let listofInfos = [code,name,quan,price,gallons]
+            fullPrice += price;
+            for(let j = 0; j < 5; j++){
                 infoList[details[j]] = listofInfos[j];
             }
             
@@ -52,8 +55,11 @@ document.addEventListener('click', function(e) {
         let info = { 
             infoAll
         }
+        userInfo.update({'paidPrice' : fullPrice});
+
         console.log(userInfo,info)
-        window.location.href = 'locationforward.html'
+        if(userInfo != null && info != null){
+        window.location.href = 'locationforward.html'}
     }
     
 
@@ -95,16 +101,29 @@ function appendItemDetails() {
     priceInput.type = "text";
     priceInput.required = true;
 
+    const gallonsLabel = document.createElement("label");
+    gallonsLabel.textContent = " Size `Gallons` : ";
+    const gallonsInput = document.createElement("input");
+    gallonsInput.id = `gal${count}`;
+    gallonsInput.type = "text";
+    gallonsInput.required = true;
+
     div.appendChild(br);
     itemCodeLabel.appendChild(itemCodeInput);
     itemNameLabel.appendChild(itemNameInput);
     quantityLabel.appendChild(quantityInput);
     priceLabel.appendChild(priceInput);
+    gallonsLabel.appendChild(gallonsInput);
 
     div.appendChild(itemCodeLabel);
+    div.appendChild(document.createElement('br'));
     div.appendChild(itemNameLabel);
+    div.appendChild(document.createElement('br'));
     div.appendChild(quantityLabel);
+    div.appendChild(document.createElement('br'));
     div.appendChild(priceLabel);
+    div.appendChild(document.createElement('br'));
+    div.appendChild(gallonsLabel);
     space.append(div);
 }
 
