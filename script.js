@@ -15,52 +15,54 @@ document.addEventListener('click', function(e) {
         removeItemDetails();
     }
 
-    submitButton.onclick = function(e){
+    submitButton.onclick = function (e) {
         e.preventDefault();
-        var firstName = document.getElementById('firstName').value;
-        var lastName = document.getElementById('lastName').value;
-        var number = document.getElementById('phone').value;
-        var address = document.getElementById('address').value;
-        let userInfo = {
-            'firstName' : firstName,
-            'lastName' : lastName,
-            'number' : number,
-            'address' : address
-        }
-        let details = ['itemCode', 'name', 'quantity', 'totalPrice','gallons'];
-        let infoAll = []
-        var fullPrice = 0;
-        var gallons = 0
-        for(let i = 0; i < count + 1; i++){
-            let infoList = {}
-
-            listing = `ItemNumber${i}`
-
-            let code = document.getElementById(`code${i}`).value;
-            let name = document.getElementById(`name${i}`).value;
-            let quan = document.getElementById(`quan${i}`).value;
-            let price = document.getElementById(`price${i}`).value;
-            let gallons = document.getElementById(`gal${i}`).value;
-
-
-            let listofInfos = [code,name,quan,price,gallons]
+    
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const number = document.getElementById('phone').value;
+        const address = document.getElementById('address').value;
+    
+        const userInfo = {
+            firstName,
+            lastName,
+            number,
+            address,
+            paidPrice: 0
+        };
+    
+        const details = ['itemCode', 'name', 'quantity', 'totalPrice', 'gallons'];
+        const infoAll = [];
+        let fullPrice = 0;
+    
+        for (let i = 0; i < count + 1; i++) {
+            const infoList = {};
+    
+            const listing = `ItemNumber${i}`;
+            const code = document.getElementById(`code${i}`).value;
+            const name = document.getElementById(`name${i}`).value;
+            const quan = document.getElementById(`quan${i}`).value;
+            const price = parseFloat(document.getElementById(`price${i}`).value) || 0;
+            const gallons = document.getElementById(`gal${i}`).value;
+    
             fullPrice += price;
-            for(let j = 0; j < 5; j++){
+    
+            const listofInfos = [code, name, quan, price, gallons];
+            for (let j = 0; j < details.length; j++) {
                 infoList[details[j]] = listofInfos[j];
             }
-            
-            infoAll.push({ [listing] : infoList})
-
+    
+            infoAll.push({ [listing]: infoList });
         }
-        let info = { 
-            infoAll
+    
+        userInfo.paidPrice = fullPrice;
+    
+        if (firstName && lastName && number && address && infoAll.length > 0) {
+            window.location.href = 'locationforward.html';
+        } else {
+            alert('Please fill in all required fields.');
         }
-        userInfo.update({'paidPrice' : fullPrice});
-
-        console.log(userInfo,info)
-        if(userInfo != null && info != null){
-        window.location.href = 'locationforward.html'}
-    }
+    };
     
 
 
