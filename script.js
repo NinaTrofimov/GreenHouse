@@ -26,16 +26,9 @@ document.addEventListener('click', function(e) {
             'number' : number,
             'address' : address
         }
-<<<<<<< Updated upstream
-        let details = ['itemCode', 'name', 'quantity', 'totalPrice','gallons'];
-        let infoAll = []
-        var fullPrice = 0;
-        var gallons = 0
-=======
         let details = ['itemCode', 'name', 'quantity', 'totalPrice'];
         let infoAll = []
         
->>>>>>> Stashed changes
         for(let i = 0; i < count + 1; i++){
             let infoList = {}
 
@@ -45,19 +38,10 @@ document.addEventListener('click', function(e) {
             let name = document.getElementById(`name${i}`).value;
             let quan = document.getElementById(`quan${i}`).value;
             let price = document.getElementById(`price${i}`).value;
-<<<<<<< Updated upstream
-            let gallons = document.getElementById(`gal${i}`).value;
-
-
-            let listofInfos = [code,name,quan,price,gallons]
-            fullPrice += price;
-            for(let j = 0; j < 5; j++){
-=======
 
             let listofInfos = [code,name,quan,price]
             
             for(let j = 0; j < 4; j++){
->>>>>>> Stashed changes
                 infoList[details[j]] = listofInfos[j];
             }
             
@@ -67,16 +51,11 @@ document.addEventListener('click', function(e) {
         let info = { 
             infoAll
         }
-<<<<<<< Updated upstream
         userInfo.update({'paidPrice' : fullPrice});
 
         console.log(userInfo,info)
         if(userInfo != null && info != null){
         window.location.href = 'locationforward.html'}
-=======
-        console.log(userInfo,info)
-        window.location.href = 'locationforward.html'
->>>>>>> Stashed changes
     }
     
 
