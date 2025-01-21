@@ -1,6 +1,7 @@
 let count = 0;
-
+let fullPrice = 0.00;
 document.addEventListener('click', function(e) {
+
     e.preventDefault()
     const add = document.getElementById('add');
     const remove = document.getElementById('remove');
@@ -14,55 +15,56 @@ document.addEventListener('click', function(e) {
     remove.onclick = function(){
         removeItemDetails();
     }
-
-    submitButton.onclick = function (e) {
+    
+    submitButton.onclick = function(e){
         e.preventDefault();
-    
-        const firstName = document.getElementById('firstName').value;
-        const lastName = document.getElementById('lastName').value;
-        const number = document.getElementById('phone').value;
-        const address = document.getElementById('address').value;
-    
-        const userInfo = {
-            firstName,
-            lastName,
-            number,
-            address,
-            paidPrice: 0
-        };
-    
-        const details = ['itemCode', 'name', 'quantity', 'totalPrice', 'gallons'];
-        const infoAll = [];
-        let fullPrice = 0;
-    
-        for (let i = 0; i < count + 1; i++) {
-            const infoList = {};
-    
-            const listing = `ItemNumber${i}`;
-            const code = document.getElementById(`code${i}`).value;
-            const name = document.getElementById(`name${i}`).value;
-            const quan = document.getElementById(`quan${i}`).value;
-            const price = parseFloat(document.getElementById(`price${i}`).value) || 0;
-            const gallons = document.getElementById(`gal${i}`).value;
-    
+        var firstName = document.getElementById('firstName').value;
+        var lastName = document.getElementById('lastName').value;
+        var number = document.getElementById('phone').value;
+        var address = document.getElementById('address').value;
+        let userInfo = {
+            'firstName' : firstName,
+            'lastName' : lastName,
+            'number' : number,
+            'address' : address
+        }
+        let details = ['itemCode', 'name', 'quantity', 'totalPrice','gallons'];
+        let infoAll = []
+        var fullPrice = 0;
+        var gallons = 0
+        for(let i = 0; i < count + 1; i++){
+            let infoList = {}
+
+            listing = `ItemNumber${i}`
+
+            let code = document.getElementById(`code${i}`).value;
+            let name = document.getElementById(`name${i}`).value;
+            let quan = document.getElementById(`quan${i}`).value;
+            let price = document.getElementById(`price${i}`).value;
+            let gallons = document.getElementById(`gal${i}`).value;
+
+
+            let listofInfos = [code,name,quan,price,gallons]
             fullPrice += price;
-    
-            const listofInfos = [code, name, quan, price, gallons];
-            for (let j = 0; j < details.length; j++) {
+            for(let j = 0; j < 5; j++){
                 infoList[details[j]] = listofInfos[j];
             }
     
             infoAll.push({ [listing]: infoList });
         }
-    
-        userInfo.paidPrice = fullPrice;
-    
-        if (firstName && lastName && number && address && infoAll.length > 0) {
-            window.location.href = 'locationforward.html';
-        } else {
-            alert('Please fill in all required fields.');
+        let info = { 
+            infoAll
         }
-    };
+        userInfo['paidPrice'] = fullPrice;
+
+        console.log(userInfo,info)
+        if(userInfo != null && info != null){
+        /*window.location.href = 'locationforward.html'*/
+        console.log('complete')}
+        else{
+
+        }
+    }
     
 
 
@@ -73,7 +75,7 @@ function appendItemDetails() {
     const div = document.createElement('div');
     div.id = `itemsDetail${count}`
     const space = document.getElementById('space');
-    const br = document.createElement('br');
+    
 
     const itemCodeLabel = document.createElement("label");
     itemCodeLabel.textContent = " Item Code : ";
@@ -103,19 +105,11 @@ function appendItemDetails() {
     priceInput.type = "text";
     priceInput.required = true;
 
-    const gallonsLabel = document.createElement("label");
-    gallonsLabel.textContent = " Size `Gallons` : ";
-    const gallonsInput = document.createElement("input");
-    gallonsInput.id = `gal${count}`;
-    gallonsInput.type = "text";
-    gallonsInput.required = true;
-
-    div.appendChild(br);
+    div.appendChild(document.createElement('br'));
     itemCodeLabel.appendChild(itemCodeInput);
     itemNameLabel.appendChild(itemNameInput);
     quantityLabel.appendChild(quantityInput);
     priceLabel.appendChild(priceInput);
-    gallonsLabel.appendChild(gallonsInput);
 
     div.appendChild(itemCodeLabel);
     div.appendChild(document.createElement('br'));
@@ -124,8 +118,6 @@ function appendItemDetails() {
     div.appendChild(quantityLabel);
     div.appendChild(document.createElement('br'));
     div.appendChild(priceLabel);
-    div.appendChild(document.createElement('br'));
-    div.appendChild(gallonsLabel);
     space.append(div);
 }
 
