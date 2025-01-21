@@ -22,7 +22,7 @@ label:hover{
     font-size:20px;
     box-sizing:border-box;
     text-align: center;
-    min-width:60em;
+    min-width:30em;
     padding: 10px;
 }
 
@@ -33,4 +33,11 @@ label:hover{
   align-items: center;
   height: 50px;
   
+}
+
+#error{
+    justify-content: center;
+  align-items: center;
+  text-align: center;
+  color:rgb(119, 26, 26)
 }

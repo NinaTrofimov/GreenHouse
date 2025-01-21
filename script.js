@@ -1,5 +1,7 @@
-
+let count = 0;
+let fullPrice = 0.00;
 document.addEventListener('click', function(e) {
+
     e.preventDefault()
     const add = document.getElementById('add');
     const remove = document.getElementById('remove');
@@ -13,19 +15,31 @@ document.addEventListener('click', function(e) {
     remove.onclick = function(){
         removeItemDetails();
     }
-
+    
     submitButton.onclick = function(e){
         e.preventDefault();
         var firstName = document.getElementById('firstName').value;
         var lastName = document.getElementById('lastName').value;
-        var number = document.getElementById('phone').value;
+        var fullNumber = document.getElementById('phone').value;
         var address = document.getElementById('address').value;
         let userInfo = {
             'firstName' : firstName,
             'lastName' : lastName,
-            'number' : number,
-            'address' : address
+            'number' : 0,
+            'address' : address,
+            'paidPrice' : 0
         }
+
+        let number = fullNumber.replace('/-/g', "");
+
+        if(typeof number === "number"&& !isNaN(value) && number.length == 10){
+            userInfo['number'] = fullNumber
+        }
+        else{
+            errorPhone = document.getElementById('errorPhone')
+            errorPhone.textContent = "Phone number is input incorrectly."
+        }
+
         let details = ['itemCode', 'name', 'quantity', 'totalPrice'];
         let infoAll = []
         
@@ -34,11 +48,11 @@ document.addEventListener('click', function(e) {
 
             listing = `ItemNumber${i}`
 
-            let code = document.getElementById(`code${i}`).value;
+            let code = parseInt(document.getElementById(`code${i}`).value);
             let name = document.getElementById(`name${i}`).value;
-            let quan = document.getElementById(`quan${i}`).value;
-            let price = document.getElementById(`price${i}`).value;
-
+            let quan = parseInt(document.getElementById(`quan${i}`).value);
+            let price = parseFloat(document.getElementById(`price${i}`).value);
+            
             let listofInfos = [code,name,quan,price]
             
             for(let j = 0; j < 4; j++){
@@ -51,11 +65,15 @@ document.addEventListener('click', function(e) {
         let info = { 
             infoAll
         }
-        userInfo.update({'paidPrice' : fullPrice});
+        userInfo['paidPrice'] = fullPrice;
 
         console.log(userInfo,info)
         if(userInfo != null && info != null){
-        window.location.href = 'locationforward.html'}
+        /*window.location.href = 'locationforward.html'*/
+        console.log('complete')}
+        else{
+
+        }
     }
     
 
@@ -67,7 +85,7 @@ function appendItemDetails() {
     const div = document.createElement('div');
     div.id = `itemsDetail${count}`
     const space = document.getElementById('space');
-    const br = document.createElement('br');
+    
 
     const itemCodeLabel = document.createElement("label");
     itemCodeLabel.textContent = " Item Code : ";
@@ -97,15 +115,18 @@ function appendItemDetails() {
     priceInput.type = "text";
     priceInput.required = true;
 
-    div.appendChild(br);
+    div.appendChild(document.createElement('br'));
     itemCodeLabel.appendChild(itemCodeInput);
     itemNameLabel.appendChild(itemNameInput);
     quantityLabel.appendChild(quantityInput);
     priceLabel.appendChild(priceInput);
 
     div.appendChild(itemCodeLabel);
+    div.appendChild(document.createElement('br'));
     div.appendChild(itemNameLabel);
+    div.appendChild(document.createElement('br'));
     div.appendChild(quantityLabel);
+    div.appendChild(document.createElement('br'));
     div.appendChild(priceLabel);
     space.append(div);
 }
