@@ -20,37 +20,45 @@ document.addEventListener('click', function(e) {
         e.preventDefault();
         var firstName = document.getElementById('firstName').value;
         var lastName = document.getElementById('lastName').value;
-        var number = document.getElementById('phone').value;
+        var fullNumber = document.getElementById('phone').value;
         var address = document.getElementById('address').value;
         let userInfo = {
             'firstName' : firstName,
             'lastName' : lastName,
-            'number' : number,
-            'address' : address
+            'number' : 0,
+            'address' : address,
+            'paidPrice' : 0
         }
-        let details = ['itemCode', 'name', 'quantity', 'totalPrice','gallons'];
-        let infoAll = []
-        var fullPrice = 0;
-        var gallons = 0
+
+        let number = fullNumber.replace('/-/g', "");
+
+        if(typeof number === "number"&& !isNaN(value) && number.length == 10){
+            userInfo['number'] = fullNumber
+        }
+        else{
+            errorPhone = document.getElementById('errorPhone')
+            errorPhone.textContent = "Phone number is input incorrectly."
+        }
+
+              
         for(let i = 0; i < count + 1; i++){
             let infoList = {}
 
             listing = `ItemNumber${i}`
 
-            let code = document.getElementById(`code${i}`).value;
+            let code = parseInt(document.getElementById(`code${i}`).value);
             let name = document.getElementById(`name${i}`).value;
-            let quan = document.getElementById(`quan${i}`).value;
-            let price = document.getElementById(`price${i}`).value;
-            let gallons = document.getElementById(`gal${i}`).value;
-
-
-            let listofInfos = [code,name,quan,price,gallons]
-            fullPrice += price;
-            for(let j = 0; j < 5; j++){
+            let quan = parseInt(document.getElementById(`quan${i}`).value);
+            let price = parseFloat(document.getElementById(`price${i}`).value);
+            
+            let listofInfos = [code,name,quan,price]
+            
+            for(let j = 0; j < 4; j++){
                 infoList[details[j]] = listofInfos[j];
             }
-    
-            infoAll.push({ [listing]: infoList });
+            
+            infoAll.push({ [listing] : infoList})
+
         }
         let info = { 
             infoAll
@@ -65,6 +73,7 @@ document.addEventListener('click', function(e) {
 
         }
     }
+    
     
 
 
