@@ -1,17 +1,30 @@
 body{
+    font-family: Arial, sans-serif;
     box-sizing:border-box;
     padding: 100px;
     margin: 30px;
+    background-color: aliceblue;
+}
+
+.container{
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
+    border-radius: 30px;
+    border: 1px dotted #00487C;
+    box-shadow: 0 4px 15px #00487C;
+    min-height: 50%;
 }
 
 #customer{
-    color:rgb(72, 72, 72);
+    color:#2F243A;
     font-size:20px;
     box-sizing:border-box;
     text-align: center;
+    
 }
 label{
     max-width:10px;
+    margin-bottom : 15px;
 }
 label:hover{
     color:black;
@@ -22,10 +35,23 @@ label:hover{
     font-size:20px;
     box-sizing:border-box;
     text-align: center;
-    min-width:30em;
     padding: 10px;
 }
+button{
+    background-color:#027BCE;
+    border-radius: 9px;
+    font-weight: 450;
+    width: 10em;
+    color:white;
+    border: none;
+    margin: 20px;
+    padding: 10px;
+    
+}
 
+button:hover {
+    background-color: #00487C;
+}
 #buttonsAll{
    font-size:60px;
    display: flex;
@@ -33,8 +59,11 @@ label:hover{
   align-items: center;
   height: 50px;
   
+  
 }
-
+p{
+    margin-bottom: 20px;
+}
 #error{
     justify-content: center;
   align-items: center;
