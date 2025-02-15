@@ -82,6 +82,8 @@ function appendItemDetails() {
     count += 1;
 
     const div = document.createElement('div');
+    const itemh2 = document.createElement('h2');
+    itemh2.textContent = `Item ${count + 1}`;
     div.id = `itemsDetail${count}`
     const space = document.getElementById('space');
     
@@ -113,19 +115,15 @@ function appendItemDetails() {
     priceInput.id = `price${count}`;
     priceInput.type = "text";
     priceInput.required = true;
-
-    div.appendChild(document.createElement('br'));
+    div.appendChild(itemh2);
     itemCodeLabel.appendChild(itemCodeInput);
     itemNameLabel.appendChild(itemNameInput);
     quantityLabel.appendChild(quantityInput);
     priceLabel.appendChild(priceInput);
 
     div.appendChild(itemCodeLabel);
-    div.appendChild(document.createElement('br'));
     div.appendChild(itemNameLabel);
-    div.appendChild(document.createElement('br'));
     div.appendChild(quantityLabel);
-    div.appendChild(document.createElement('br'));
     div.appendChild(priceLabel);
     space.append(div);
 }
