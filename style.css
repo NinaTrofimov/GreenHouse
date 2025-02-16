@@ -1,6 +1,13 @@
 body{
-    margin: 300px;
+    font-family :'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     box-sizing: border-box;
+    align-items: center;
     text-align: center;
+    background-color: aliceblue;
 }
 
+div{
+    padding:5%;
+    width:50%;
+    background-color: white;
+}
