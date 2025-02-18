@@ -15,13 +15,13 @@ document.addEventListener('click', function(e) {
     remove.onclick = function(){
         removeItemDetails();
     }
-    
+    function submission(){
     submitButton.onclick = function(e){
         e.preventDefault();
-        var firstName = document.getElementById('firstName').value;
-        var lastName = document.getElementById('lastName').value;
-        var fullNumber = document.getElementById('phone').value;
-        var address = document.getElementById('address').value;
+        var firstName = document.getElementById('firstName').value.trim();
+        var lastName = document.getElementById('lastName').value.trim();
+        var fullNumber = document.getElementById('phone').value.trim();
+        var address = document.getElementById('address').value.trim();
         let userInfo = {
             'firstName' : firstName,
             'lastName' : lastName,
@@ -29,34 +29,45 @@ document.addEventListener('click', function(e) {
             'address' : address,
             'paidPrice' : 0
         }
-
+        /*Attempt for validations*/
         let number = fullNumber.replace('/-/g', "");
-
+        errorPhone = document.getElementById('errorPhone')
+        /* Phone validation */
         if(typeof number === "number"&& !isNaN(value) && number.length == 10){
+            /*phone number doesn't work fix this*/
             userInfo['number'] = fullNumber
+            errorPhone.textContent = "";
         }
         else{
-            errorPhone = document.getElementById('errorPhone')
+            
             errorPhone.textContent = "Phone number is input incorrectly."
         }
 
-              
+
+        let details = ['itemCode', 'name', 'quantity', 'totalPrice'];
+        let infoAll = []
         for(let i = 0; i < count + 1; i++){
             let infoList = {}
 
             listing = `ItemNumber${i}`
 
-            let code = parseInt(document.getElementById(`code${i}`).value);
-            let name = document.getElementById(`name${i}`).value;
-            let quan = parseInt(document.getElementById(`quan${i}`).value);
-            let price = parseFloat(document.getElementById(`price${i}`).value);
+            let code = parseInt(document.getElementById(`code${i}`).value.trim());
+            let name = document.getElementById(`name${i}`).value.trim();
+            let quan = parseInt(document.getElementById(`quan${i}`).value.trim());
+            let price = parseFloat(document.getElementById(`price${i}`).value.trim());
             
             let listofInfos = [code,name,quan,price]
+
             
+            /*if(!code || !name || !quan || !price){
+                errorBox = document.getElementById('errorEmpty')
+                errorBox.textContent = 'Box is empty';
+            }*/
+           
             for(let j = 0; j < 4; j++){
                 infoList[details[j]] = listofInfos[j];
             }
-            
+        
             infoAll.push({ [listing] : infoList})
 
         }
@@ -73,7 +84,8 @@ document.addEventListener('click', function(e) {
 
         }
     }
-    
+}
+submission(); 
     
 
 
