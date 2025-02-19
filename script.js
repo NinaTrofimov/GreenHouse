@@ -18,29 +18,33 @@ document.addEventListener('click', function(e) {
     function submission(){
     submitButton.onclick = function(e){
         e.preventDefault();
+
+        let successioncount = 0;
+
         var firstName = document.getElementById('firstName').value.trim();
         var lastName = document.getElementById('lastName').value.trim();
         var fullNumber = document.getElementById('phone').value.trim();
         var address = document.getElementById('address').value.trim();
+        
         let userInfo = {
             'firstName' : firstName,
             'lastName' : lastName,
-            'number' : 0,
+            'phonenumber' : 0,
             'address' : address,
             'paidPrice' : 0
         }
         /*Attempt for validations*/
-        let number = fullNumber.replace('/-/g', "");
+        let number = fullNumber.replace(/-/g, '');
+        console.log(number);
         errorPhone = document.getElementById('errorPhone')
         /* Phone validation */
-        if(typeof number === "number"&& !isNaN(value) && number.length == 10){
-            /*phone number doesn't work fix this*/
-            userInfo['number'] = fullNumber
-            errorPhone.textContent = "";
-        }
-        else{
+        if (!isNaN(number) && number.length === 10) {
+            successioncount += 1;
+            userInfo['phonenumber'] = fullNumber;
+            errorPhone.textContent = '';
+        } else {
             
-            errorPhone.textContent = "Phone number is input incorrectly."
+            errorPhone.textContent = 'Please enter a valid 10-digit phone number.';
         }
 
 
@@ -77,11 +81,11 @@ document.addEventListener('click', function(e) {
         userInfo['paidPrice'] = fullPrice;
 
         console.log(userInfo,info)
-        if(userInfo != null && info != null){
+        if(successioncount == 3){
         /*window.location.href = 'locationforward.html'*/
         console.log('complete')}
         else{
-
+            
         }
     }
 }
