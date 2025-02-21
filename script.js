@@ -1,4 +1,5 @@
 let count = 0;
+/* full price needs to be fixed */
 let fullPrice = 0.00;
 document.addEventListener('click', function(e) {
 
@@ -19,13 +20,23 @@ document.addEventListener('click', function(e) {
     submitButton.onclick = function(e){
         e.preventDefault();
 
-        let successioncount = 0;
+        let successionSwitch = false;
 
         var firstName = document.getElementById('firstName').value.trim();
         var lastName = document.getElementById('lastName').value.trim();
         var fullNumber = document.getElementById('phone').value.trim();
         var address = document.getElementById('address').value.trim();
-        
+        errorPerson = document.getElementById('errorPerson');
+
+        if(!firstName || !lastName || !fullNumber ||!address){
+            errorPerson.textContent = 'Person Info is missing';
+            successionSwitch = false;
+        }
+        else{
+            errorPerson.textContent = '';
+            successionSwitch = true;
+        }
+
         let userInfo = {
             'firstName' : firstName,
             'lastName' : lastName,
@@ -33,23 +44,24 @@ document.addEventListener('click', function(e) {
             'address' : address,
             'paidPrice' : 0
         }
-        /*Attempt for validations*/
+
         let number = fullNumber.replace(/-/g, '');
-        console.log(number);
         errorPhone = document.getElementById('errorPhone')
+
         /* Phone validation */
         if (!isNaN(number) && number.length === 10) {
-            successioncount += 1;
+            successionSwitch = true;
             userInfo['phonenumber'] = fullNumber;
             errorPhone.textContent = '';
         } else {
-            
+            successionSwitch = false;
             errorPhone.textContent = 'Please enter a valid 10-digit phone number.';
         }
 
 
         let details = ['itemCode', 'name', 'quantity', 'totalPrice'];
         let infoAll = []
+        errorBox = document.getElementById('errorEmpty')
         for(let i = 0; i < count + 1; i++){
             let infoList = {}
 
@@ -61,18 +73,22 @@ document.addEventListener('click', function(e) {
             let price = parseFloat(document.getElementById(`price${i}`).value.trim());
             
             let listofInfos = [code,name,quan,price]
-
-            
-            /*if(!code || !name || !quan || !price){
-                errorBox = document.getElementById('errorEmpty')
-                errorBox.textContent = 'Box is empty';
-            }*/
-           
+            console.log(listofInfos);
+            /* item boxes validation */
+            if(!code || !name || !quan || !price){
+                successionSwitch = false;
+                errorBox.textContent = 'Item input is missing';
+            }
+            else {
+                successionSwitch = true;
+                errorBox.textContent = '';
+            }
             for(let j = 0; j < 4; j++){
                 infoList[details[j]] = listofInfos[j];
             }
         
             infoAll.push({ [listing] : infoList})
+           
 
         }
         let info = { 
@@ -81,7 +97,7 @@ document.addEventListener('click', function(e) {
         userInfo['paidPrice'] = fullPrice;
 
         console.log(userInfo,info)
-        if(successioncount == 3){
+        if(successionSwitch == true){
         /*window.location.href = 'locationforward.html'*/
         console.log('complete')}
         else{
