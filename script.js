@@ -26,9 +26,10 @@ document.addEventListener('click', function(e) {
         var lastName = document.getElementById('lastName').value.trim();
         var fullNumber = document.getElementById('phone').value.trim();
         var address = document.getElementById('address').value.trim();
+        var miles = document.getElementById('miles').value.trim();
         errorPerson = document.getElementById('errorPerson');
 
-        if(!firstName || !lastName || !fullNumber ||!address){
+        if(!firstName || !lastName || !fullNumber ||!address || !miles){
             errorPerson.textContent = 'Person Info is missing';
             successionSwitch = false;
         }
@@ -42,13 +43,14 @@ document.addEventListener('click', function(e) {
             'lastName' : lastName,
             'phonenumber' : 0,
             'address' : address,
-            'paidPrice' : 0
+            'paidPrice' : 0,
+            'miles' : miles
         }
 
         let number = fullNumber.replace(/-/g, '');
         errorPhone = document.getElementById('errorPhone')
 
-        /* Phone validation */
+        /* phone validation */
         if (!isNaN(number) && number.length === 10) {
             successionSwitch = true;
             userInfo['phonenumber'] = fullNumber;
@@ -98,6 +100,7 @@ document.addEventListener('click', function(e) {
 
         console.log(userInfo,info)
         if(successionSwitch == true){
+            
         /*window.location.href = 'locationforward.html'*/
         console.log('complete')}
         else{
@@ -105,9 +108,8 @@ document.addEventListener('click', function(e) {
         }
     }
 }
-submission(); 
-    
 
+submission(); 
 
 });
 function appendItemDetails() {
