@@ -26,10 +26,9 @@ document.addEventListener('click', function(e) {
         var lastName = document.getElementById('lastName').value.trim();
         var fullNumber = document.getElementById('phone').value.trim();
         var address = document.getElementById('address').value.trim();
-        var miles = document.getElementById('miles').value.trim();
         errorPerson = document.getElementById('errorPerson');
 
-        if(!firstName || !lastName || !fullNumber ||!address || !miles){
+        if(!firstName || !lastName || !fullNumber ||!address){
             errorPerson.textContent = 'Person Info is missing';
             successionSwitch = false;
         }
@@ -44,7 +43,6 @@ document.addEventListener('click', function(e) {
             'phonenumber' : 0,
             'address' : address,
             'paidPrice' : 0,
-            'miles' : miles
         }
 
         let number = fullNumber.replace(/-/g, '');
@@ -96,15 +94,24 @@ document.addEventListener('click', function(e) {
         let info = { 
             infoAll
         }
+
+        /* fix price */
         userInfo['paidPrice'] = fullPrice;
 
-        console.log(userInfo,info)
-        if(successionSwitch == true){
-            
-        /*window.location.href = 'locationforward.html'*/
-        console.log('complete')}
-        else{
-            
+        if (successionSwitch) {
+            fetch('/info', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(info),
+            })
+            .then(response => response.json())
+            .then(() => {
+                console.log('complete');
+            });
+        } else {
+           alert('Error has occured');
         }
     }
 }
